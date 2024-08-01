@@ -1,0 +1,111 @@
+{% block otherCSS %}
+    <style>
+        .nav-item.activo {
+            background-color: #3f51b5;
+            border-radius: 50px;
+        }
+    </style>
+{% endblock %}
+<nav class="navbar navbar-expand-lg fixed-top" id="mainNav">
+        <a class="chip" href="{{ path('homepage') }}">
+            <img src="{{ asset('images/logo.png') }}" width="40px" height="40px" style="margin-bottom: 10px; margin-right: 10px;">
+            <span class="logo" style="width: auto; font-size: 30px; font-family: 'Segoe Print', Mistral, 'Segoe UI', Arial, sans-serif;" id="logo">
+                DevSo                           
+            </span>
+        </a>
+        {# <span class="navbar-brand logo" id="menu_lateral" style="width: auto; cursor: pointer;" onclick="openNav()" title="Abrir menú lateral">&nbsp;☰&nbsp;</span> #}
+        <div class="chip chip-dark" id="chip">
+            <img src="{{ asset('images/' ~ app.user.avatar) }}{#{% if is_granted(" ROLE_SUPER_ADMIN") %}{% endif %}#}" 
+                alt="Person" width="76" height="76">
+                <a id="user" class="user-light" href="{{ path('user_show', { 'id': app.user.id }) }}">
+                    {{ app.user.username }}
+                </a>
+        </div>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li {% if url=='home' %} class="nav-item activo" {% endif %}>
+                        <a class="nav-link" href="{{ path('homepage') }}">
+                            <i class="fa fa-fw fa-home"></i>
+                            <span class="names">
+                                Home
+                            </span>
+                        </a>
+                </li>
+                        <li class="{% if url=='admin' %}nav-item activo {% endif %}">
+                            <a class="nav-link" href="{{ path('admin') }}">
+                                <i class="fa fa-fw fa-key"></i>
+                                <span class="names">
+                                    Admin
+                                </span>                                                                              
+                            </a>
+                        </li>
+                        <li class="{% if url=='entidades' %}nav-item activo {% endif %}">
+                            <a class="nav-link" href="{{ path('entidad_index') }}">
+                                <i class="fa fa-fw fa-address-book"></i>
+                                <span class="names">
+                                    Entidad
+                                </span>                                                                              
+                            </a>
+                        </li>
+                        <li class="{% if url=='acciones' %}nav-item activo {% endif %}">
+                            <a class="nav-link" href="{{ path('tipo_accion_index') }}">
+                                <i class="fa fa-fw fa-archive"></i>
+                                <span class="names">
+                                    Tipos de acciones
+                                </span>                                                                              
+                            </a>
+                        </li>
+                        <li class="{% if url=='pam' %}nav-item activo {% endif %}">
+                            <a class="nav-link" href="{{ path('pam_index') }}">
+                                <i class="fa fa-fw fa-qrcode"></i>
+                                <span class="names">
+                                            PAM
+                                        </span>
+                            </a>
+                        </li>
+                        <li {% if url=='usuario' %} class="nav-item activo" {% endif %}>
+                            <a class="nav-link" href="{{ path('user_index') }}">
+                                <i class="fa fa-fw fa-users"></i>
+                                <span class="names">
+                                    Usuarios             
+                                </span>
+                            </a>
+                        </li>
+                <li {% if url=='secure' %} class="nav-item activo" {% endif %}>
+                        <a class="nav-link" href="{{ path('log_index') }}">
+                            <i class="fa fa-fw fa-list-ul"></i>
+                            <span class="names">
+                                Logs                        
+                            </span>
+                        </a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto navbar-right">
+                    <button class="switch" id="switch">
+                        <span><i class="fa fa-fw fa-sun-o"></i></span>
+                        <span><i class="fa fa-fw fa-moon-o"></i></span>
+                    </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {% if is_granted("ROLE_SUPER_ADMIN") %}
+                        <li class="nav-item{% if url=='database' %} activo{% endif %}" data-toggle="tooltip" data-placement="right" title="Database">
+                            <a class="nav-link" href="{{ path('admin') }}">
+                                <i class="fa fa-fw fa-database"></i>
+                            </a>
+                        </li>
+                    {% endif %}
+                    <li class="nav-item primary">
+                        <a style="cursor: help;" class="nav-link" data-toggle="modal" data-target="#infoModal">
+                            <i class="fa fa-fw fa-info"></i>
+                        </a>
+                        </li>
+                        <li class="nav-item primary">
+                            <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
+                                <i class="fa fa-fw fa-sign-out"></i>
+                                Salir                                                
+                            </a>
+                        </li>
+                </ul>
+        </div>
+</nav>      

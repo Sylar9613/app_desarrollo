@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ objetivo.nombre|upper }}{% endblock %}
+
+{% block body %}
+    {% if sec==2 %}
+        <a style="width: 11%; position: fixed; left: 25px; font-weight: bold; font-size: 16px; font-family: 'Segoe UI', Arial, sans-serif;" class="btn button bg-primary-angular" href="{{ path('objetivo_show', { 'id': objetivo.id, 'entidad': entidad.id }) }}">
+                <span>
+                    <i class="fa fa-fw fa-backward"></i>
+                    Anterior
+                </span>
+        </a>
+        <a style="width: 11%; position: fixed; left: 25px; margin-top: 95px; font-weight: bold; font-size: 16px; font-family: 'Segoe UI', Arial, sans-serif;" class="btn button bg-warn" href="{{ path('objetivo_assign', { 'id': entidad.id }) }}">
+                <span>
+                    <i class="fa fa-fw fa-random"></i>
+                    Atr&aacute;s
+                </span>
+        </a>
+        <div style="text-align: right;">
+            <img src="{{ asset('images/Objetivos/objetivo'~objetivo.id~'-2.jpg') }}"
+                 width="auto" height="auto">
+        </div>
+    {% else %}
+        {% if objetivo.id==17 %}
+            <a style="width: 11%; position: fixed; left: 25px; font-weight: bold; font-size: 16px; font-family: 'Segoe UI', Arial, sans-serif;" class="btn button bg-primary-angular" href="{{ path('objetivo_second', { 'id': objetivo.id, 'entidad': entidad.id }) }}">
+                <span>
+                    <i class="fa fa-fw fa-forward"></i>
+                    Siguiente
+                </span>
+            </a>
+            <a style="width: 11%; margin-top: 95px; position: fixed; left: 25px; font-weight: bold; font-size: 16px; font-family: 'Segoe UI', Arial, sans-serif;" class="btn button w3-green" href="{{ path('objetivo_entidad_asign', { 'id': objetivo.id, 'entidad': entidad.id }) }}">
+                <span>
+                    <i class="fa fa-fw fa-chain-broken"></i>
+                    Asignar
+                </span>
+            </a>
+            <a style="width: 11%; position: fixed; left: 25px; margin-top: 190px; font-weight: bold; font-size: 16px; font-family: 'Segoe UI', Arial, sans-serif;" class="btn button bg-warn" href="{{ path('objetivo_assign', { 'id': entidad.id }) }}">
+                <span>
+                    <i class="fa fa-fw fa-random"></i>
+                    Atr&aacute;s
+                </span>
+            </a>
+            <div style="text-align: center;">
+                <img src="{{ asset('images/Objetivos/objetivo'~objetivo.id~'-1.jpg') }}"
+                     width="85%" height="auto">
+            </div>
+        {% else %}
+            <a style="width: 11%; position: fixed; left: 25px; font-weight: bold; font-size: 16px; font-family: 'Segoe UI', Arial, sans-serif;" class="btn button w3-green" href="{{ path('objetivo_entidad_asign', { 'id': objetivo.id, 'entidad': entidad.id }) }}">
+                <span>
+                    <i class="fa fa-fw fa-chain-broken"></i>
+                    Asignar
+                </span>
+            </a>
+            <a style="width: 11%; margin-top: 95px; position: fixed; left: 25px; font-weight: bold; font-size: 16px; font-family: 'Segoe UI', Arial, sans-serif;" class="btn button bg-warn" href="{{ path('objetivo_assign', { 'id': entidad.id }) }}">
+                <span>
+                    <i class="fa fa-fw fa-random"></i>
+                    Atr&aacute;s
+                </span>
+            </a>
+            <div style="text-align: center;">
+                <img src="{{ asset('images/Objetivos/objetivo'~objetivo.id~'.jpg') }}"
+                     width="85%" height="auto">
+            </div>
+        {% endif %}
+    {% endif %}
+{% endblock %}

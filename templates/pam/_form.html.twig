@@ -1,0 +1,59 @@
+{{ form_start(form) }}
+    {% if form_errors(form.resultados_esperados) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.resultados_esperados) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form) }}
+        </div>
+    {% endif %}
+    <div class="form-group">
+        {{ form_row(form.nombre) }}
+        {{ include('admin/validation_js.html.twig', {'id_req':'req-nom', 'id_span':'span-nom'}) }}
+
+        {{ form_row(form.resultados_esperados) }}
+        {{ include('admin/validation_js.html.twig', {'id_req':'req-re', 'id_span':'span-re'}) }}
+
+        {{ form_row(form.lineas) }}
+
+        {{ form_row(form.cuantitativos) }}
+        {{ form_row(form.cualitativos) }}
+        <br/><br/>
+    </div>
+    <br/>
+    <button class="btn {{ button_class|default('btn-success') }} btn-block text-white"><i class="fa fa-fw {{ button_fa|default('fa-save') }}"></i>&nbsp;{{ button_label|default('Guardar') }}</button>
+{{ form_end(form) }}
+<script>
+    function validateFields(input) {
+        if (input === '1'){
+            var spanRE = document.getElementById('span-re');
+            var inputRE = document.getElementById("pam_resultados_esperados");
+            if (inputRE.checkValidity() === false) {
+                $('#req-re').removeClass('collapse');
+                spanRE.innerHTML = inputRE.validationMessage;
+                $('#pam_resultados_esperados:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-re').addClass('collapse');
+                $('#pam_resultados_esperados').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '2'){
+            var spanN = document.getElementById('span-nom');
+            var inputN = document.getElementById("pam_nombre");
+            if (inputN.checkValidity() === false) {
+                $('#req-nom').removeClass('collapse');
+                spanN.innerHTML = inputN.validationMessage;
+                $('#pam_nombre:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-nom').addClass('collapse');
+                $('#pam_nombre').css("border", "1px solid #ced4da");
+            }
+        }
+    }
+</script>

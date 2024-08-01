@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Planes{% endblock %}
+
+{% block body %}
+    <br/>
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item activo">{{ routes[0] }}</li>
+    </ol>
+    {% if is_granted('ROLE_ADMIN') %}
+        <a style="font-weight: bold; font-size: 20px; font-family: 'Segoe UI', Arial, sans-serif;" class="btn button bg-primary-angular" href="{{ path('pam_new') }}"><span><i class="fa fa-fw fa-file-o"></i>Nueva</span></a>
+    {% endif %}
+    <a style="font-weight: bold; font-size: 20px; font-family: 'Segoe UI', Arial, sans-serif;vertical-align:middle" class="btn button btn-secondary" href="{{ path('homepage') }}"><span><i class="fa fa-fw fa-home"></i>Home</span></a>
+    <br/><br/>
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fa fa-fw fa-table"></i> Plan de Adelanto de la Mujer (PAM)
+        </div>
+        <div class="card-body">
+            <br/>
+            <div class="table-responsive" style="font-size: 15px;">
+                <table class="table table-hover" id="dataTable" width="100%" cellspacing="0" align="center" style="text-align: center;">
+                    <thead>
+                        <tr class="blue-grey">
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <th>Id</th>
+                            {% endif %}
+                            <th>Nombre</th>
+                            <th>Líneas Estratégicas</th>
+                            <th><i class="fa fa-fw fa-cogs"></i> Acciones</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr class="blue-grey">
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <th>Id</th>
+                            {% endif %}
+                            <th>Nombre</th>
+                            <th>Líneas Estratégicas</th>
+                            <th><i class="fa fa-fw fa-cogs"></i> Acciones</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                    {% for pam in pams if pam.activo==1 or is_granted('ROLE_ADMIN') %}
+                        <tr>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <td{% if pam.activo==0 %} class="admin-disabled" {% endif %}>
+                                    <a href="{{ path('pam_show', { 'id': pam.id }) }}">{{ pam.id }}</a>
+                                </td>
+                                <td{% if pam.activo==0 %} class="admin-disabled" {% endif %}>{{ pam.nombre }}</td>
+                            {% else %}
+                                <td{% if pam.activo==0 %} class="admin-disabled" {% endif %}>
+                                    <a href="{{ path('pam_show', { 'id': pam.id }) }}">{{ pam.nombre }}</a>
+                                </td>
+                            {% endif %}
+                            {% if pam.lineas %}
+                                <td>{{ pam.allLineas|join(', ') }}</td>
+                            {% else %}
+                                <td>{{ " - " }}</td>
+                            {% endif %}
+                            <td>
+                                <a class="btn btn-sm blue-grey" href="{{ path('pam_show', { 'id': pam.id }) }}"><i class="fa fa-fw fa-eye"></i> Ver</a>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    {% if pam.activo==0 %}
+                                        &nbsp;<a class="btn btn-sm bg-primary-angular" href="{{ path('pam_activate', {'id': pam.id}) }}"><i class="fa fa-fw fa-unlock-alt"></i> Activar</a>
+                                    {% else %}
+                                        &nbsp;<a class="btn btn-sm blue-grey" href="{{ path('pam_edit', { 'id': pam.id }) }}"><i class="fa fa-fw fa-pencil-square-o"></i> Editar</a>
+                                    {% endif %}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="6">No se encontr&oacute; ning&uacute;n registro</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {{ include('admin/success.html.twig') }}
+{% endblock %}

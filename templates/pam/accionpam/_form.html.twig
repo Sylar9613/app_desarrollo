@@ -1,0 +1,83 @@
+{{ form_start(form) }}
+    {% if form_errors(form.nombre) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.nombre) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.responsables) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.responsables) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.fecha) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.fecha) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form) }}
+        </div>
+    {% endif %}
+    <div class="form-group">
+        {{ form_row(form.nombre) }}
+        {{ include('admin/validation_js.html.twig', {'id_req':'req-nombre', 'id_span':'span-nombre'}) }}
+        <div style="margin-top: 25px; margin-bottom: 30px;">
+        <div style="float: right;">
+            {{ form_row(form.fecha) }}
+            {{ include('admin/validation_js.html.twig', {'id_req':'req-fecha', 'id_span':'span-fecha'}) }}
+        </div>
+        {{ form_row(form.responsables) }}
+        {{ include('admin/validation_js.html.twig', {'id_req':'req-resp', 'id_span':'span-resp'}) }}
+        </div>
+    </div>
+    <br/>
+    <button class="btn {{ button_class|default('btn-success') }} btn-block text-white"><i class="fa fa-fw {{ button_fa|default('fa-save') }}"></i>&nbsp;{{ button_label|default('Guardar') }}</button>
+{{ form_end(form) }}
+<script>
+    function validateFields(input) {
+        if (input === '1'){
+            var spanNombre = document.getElementById('span-nombre');
+            var inputNombre = document.getElementById("accion_pam_nombre");
+            if (inputNombre.checkValidity() === false) {
+                $('#req-nombre').removeClass('collapse');
+                spanNombre.innerHTML = inputNombre.validationMessage;
+                $('#accion_pam_nombre:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-nombre').addClass('collapse');
+                $('#accion_pam_nombre').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '2'){
+            var spanResp = document.getElementById('span-resp');
+            var inputResp = document.getElementById("accion_pam_responsables");
+            if (inputResp.checkValidity() === false) {
+                $('#req-resp').removeClass('collapse');
+                spanResp.innerHTML = inputResp.validationMessage;
+                $('#accion_pam_responsables:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-resp').addClass('collapse');
+                $('#accion_pam_responsables').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '3'){
+            var spanFecha = document.getElementById('span-fecha');
+            var inputFecha = document.getElementById("accion_pam_fecha");
+            if (inputFecha.checkValidity() === false) {
+                $('#req-fecha').removeClass('collapse');
+                spanFecha.innerHTML = inputFecha.validationMessage;
+                $('#accion_pam_fecha:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-fecha').addClass('collapse');
+                $('#accion_pam_fecha').css("border", "1px solid #ced4da");
+            }
+        }
+    }
+</script>

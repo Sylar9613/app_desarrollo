@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nuevo Plan de Adelanto de la Mujer &lpar;PAM&rpar;{% endblock %}
+
+{% block body %}
+    <br/>
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a class="normal" href="{{ path('pam_index') }}">{{ routes[0] }}</a>
+        </li>
+        <li class="breadcrumb-item activo">{{ routes[1] }}</li>
+    </ol>
+    <h1>Crear nuevo Plan de Adelanto de la Mujer &lpar;PAM&rpar;</h1>
+    {{ include('admin/errors.html.twig') }}
+    {{ include('pam/_form.html.twig') }}
+    <button style="margin-top: 8px;" onclick="goBack()" class="btn btn-secondary btn-block text-white">Atr&aacute;s</button>
+{% endblock %}

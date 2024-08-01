@@ -1,0 +1,88 @@
+{{ form_start(form) }}
+    {% if form_errors(form.deficiencias) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.deficiencias) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.recomendaciones) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.recomendaciones) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.seguimiento) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.seguimiento) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form) }}
+        </div>
+    {% endif %}
+<br/>
+{{ form_label(form.acciones) }}
+{{ form_widget(form.acciones) }}
+<br/>
+<div class="form-group">
+    {{ form_label(form.deficiencias) }}
+    {{ form_widget(form.deficiencias) }}
+    {{ include('admin/validation_js.html.twig', {'id_req':'req-def', 'id_span':'span-def', 'width':'240px;'}) }}
+    <br/>
+    {{ form_label(form.recomendaciones) }}
+    {{ form_widget(form.recomendaciones) }}
+    {{ include('admin/validation_js.html.twig', {'id_req':'req-rec', 'id_span':'span-rec', 'width':'220px;'}) }}
+    <br/>
+    {{ form_label(form.seguimiento) }}
+    {{ form_widget(form.seguimiento) }}
+    {{ include('admin/validation_js.html.twig', {'id_req':'req-seg', 'id_span':'span-seg', 'width':'230px;'}) }}
+</div>
+<br/><br/>
+<button class="btn {{ button_class|default('btn-success') }} btn-block text-white"><i class="fa fa-fw {{ button_fa|default('fa-save') }}"></i>&nbsp;{{ button_label|default('Guardar') }}</button>
+{{ form_end(form) }}
+<script>
+    function validateFields(input) {
+        if (input === '1'){
+            var spanDef = document.getElementById('span-def');
+            var inputDef = document.getElementById("objetivo_entidad_deficiencias");
+            if (inputDef.checkValidity() === false) {
+                $('#req-def').removeClass('collapse');
+                spanDef.innerHTML = inputDef.validationMessage;
+                $('#objetivo_entidad_deficiencias:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-def').addClass('collapse');
+                $('#objetivo_entidad_deficiencias').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '2'){
+            var spanRec = document.getElementById('span-rec');
+            var inputRec = document.getElementById("objetivo_entidad_recomendaciones");
+            if (inputRec.checkValidity() === false) {
+                $('#req-rec').removeClass('collapse');
+                spanRec.innerHTML = inputRec.validationMessage;
+                $('#objetivo_entidad_recomendaciones:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-rec').addClass('collapse');
+                $('#objetivo_entidad_recomendaciones').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '3'){
+            var spanSeg = document.getElementById('span-seg');
+            var inputSeg = document.getElementById("objetivo_entidad_seguimiento");
+            if (inputSeg.checkValidity() === false) {
+                $('#req-seg').removeClass('collapse');
+                spanSeg.innerHTML = inputSeg.validationMessage;
+                $('#objetivo_entidad_seguimiento:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-seg').addClass('collapse');
+                $('#objetivo_entidad_seguimiento').css("border", "1px solid #ced4da");
+            }
+        }
+    }
+</script>

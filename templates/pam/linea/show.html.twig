@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ver línea estratégica del PAM{% endblock %}
+
+{% block body %}
+    <br/>
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">{{ routes[0] }}</li>
+        <li class="breadcrumb-item">
+            <a class="normal" href="{{ path('linea_index') }}">{{ routes[1] }}</a>
+        </li>
+        <li class="breadcrumb-item activo">{{ routes[2] }}</li>
+    </ol>
+    <h1>Línea estratégica del PAM</h1>
+    {{ include('admin/errors.html.twig') }}
+    <table class="table table-hover">
+        <tbody>
+        {% if is_granted('ROLE_ADMIN') %}
+            <tr>
+                <th>Id</th>
+                <td>{{ linea.id }}</td>
+            </tr>
+        {% endif %}
+            <tr>
+                <th>Nombre</th>
+                <td>{{ linea.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Indicadores</th>
+                <td>{{ linea.indicadores }}</td>
+            </tr>
+            <tr>
+                <th>Acciones</th>
+                <td>
+                    {{ linea.allAcciones|join(', ') }}
+                    {#{% for implicado in phd.implicados %}
+                        {{ implicado.nombre|join(', ') }}
+                    {% endfor %}#}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    {% if is_granted('ROLE_ADMIN') and linea.activo==1 %}
+        <a href="{{ path('linea_edit', { 'id': linea.id }) }}"
+           class="btn btn-warning text-white btn-block"><i class="fa fa-fw fa-edit"></i>&nbsp;Editar</a>
+        {{ include('pam/linea/_delete_form.html.twig') }}
+    {% endif %}
+    <button onclick="goBack()" class="btn btn-secondary btn-block text-white">Atr&aacute;s</button>
+{% endblock %}

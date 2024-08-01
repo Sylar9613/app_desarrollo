@@ -1,0 +1,92 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Objetivos{% endblock %}
+
+{% block otherCSS %}
+<style>
+    .objetive {
+        border: 2px black solid;
+        position: absolute;
+        width: 174px;
+        height: 172px;
+    }
+    .objetive:hover {
+        box-shadow: 0 15px 30px 0 black;
+    }
+    .fila-1 {
+        top: 116px;
+    }
+    .fila-2 {
+        top: 306px;
+    }
+    .fila-3 {
+        top: 497px;
+    }
+    .columna-1 {
+        left: 45px;
+    }
+    .columna-2 {
+        left: 236px;
+    }
+    .columna-3 {
+        left: 428px;
+    }
+    .columna-4 {
+        left: 618px;
+    }
+    .columna-5 {
+        left: 809px;
+    }
+    .columna-6 {
+        left: 1000px;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+    <div>
+        <img src="{{ asset('images/Objetivos/objetivos.jpg') }}" width="auto" height="auto"
+             style="margin-top: -40px;"/>
+        {% for objetivo in objetivos if objetivo.activo==1 or is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('objetivo_show', { 'id': objetivo.id, 'entidad': entidad.id }) }}"
+               class="objetive
+                {% if objetivo.id>0 and objetivo.id<7 %}
+                    fila-1
+                {% elseif objetivo.id>6 and objetivo.id<13 %}
+                    fila-2
+                {% else %}
+                    fila-3
+                {% endif %}
+                {% if objetivo.id==1 or objetivo.id==7 or objetivo.id==13 %}
+                    columna-1
+                {% elseif objetivo.id==2 or objetivo.id==8 or objetivo.id==14 %}
+                    columna-2
+                {% elseif objetivo.id==3 or objetivo.id==9 or objetivo.id==15 %}
+                    columna-3
+                {% elseif objetivo.id==4 or objetivo.id==10 or objetivo.id==16 %}
+                    columna-4
+                {% elseif objetivo.id==5 or objetivo.id==11 or objetivo.id==17 %}
+                    columna-5
+                {% else %}
+                    columna-6
+                {% endif %}
+                "></a>
+        {% endfor %}
+        {#<a href="obj2.html" class="objetive fila-1 columna-2"></a>
+        <a href="obj3.html" class="objetive fila-1 columna-3"></a>
+        <a href="obj4.html" class="objetive fila-1 columna-4"></a>
+        <a href="obj5.html" class="objetive fila-1 columna-5"></a>
+        <a href="obj6.html" class="objetive fila-1 columna-6"></a>
+        <a href="obj7.html" class="objetive fila-2 columna-1"></a>
+        <a href="obj8.html" class="objetive fila-2 columna-2"></a>
+        <a href="obj9.html" class="objetive fila-2 columna-3"></a>
+        <a href="obj10.html" class="objetive fila-2 columna-4"></a>
+        <a href="obj11.html" class="objetive fila-2 columna-5"></a>
+        <a href="obj12.html" class="objetive fila-2 columna-6"></a>
+        <a href="obj13.html" class="objetive fila-3 columna-1"></a>
+        <a href="obj14.html" class="objetive fila-3 columna-2"></a>
+        <a href="obj15.html" class="objetive fila-3 columna-3"></a>
+        <a href="obj16.html" class="objetive fila-3 columna-4"></a>
+        <a href="obj17-1.html" class="objetive fila-3 columna-5"></a>#}
+    </div>
+{% endblock %}

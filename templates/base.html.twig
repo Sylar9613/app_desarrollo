@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>
+            {% block title %}
+                Welcome!
+            {% endblock %}
+        </title>
+        <link rel="icon" type="image/x-icon" href="{% block icon %}{{ asset('icon/favicon.ico') }}{% endblock %}" />
+        {% block stylesheets %}
+            {{ include('admin/stylesheets.html.twig') }}
+        {% endblock %}
+        {% block otherCSS %}{% endblock %}
+    </head>
+    <body style="min-width: 432px; min-height: 451px;" onload="myFunction()" class="fixed-nav sticky-footer" id="page-top">
+        <div class="contenedor">
+            <noscript>
+                Su navegador no soporta Javascript o tiene esta funci&oacute;n desactivada
+            </noscript>
+            <!--slideshow-->
+            {% block navbar %}
+                {{ include('admin/navbar.html.twig') }}
+            {% endblock %}
+            <div id="loader"></div>
+            <div style="display:none;" id="myDiv" class="animate-bottom">
+                <div style="width: 100%; height: auto;" id="main">
+                    <div class="container-fluid">
+                        {% block body %}{% endblock %}
+                    </div>
+                </div>
+            </div>
+            {% block footer %}
+                {{ include('admin/footer.html.twig') }}
+            {% endblock %}
+            {% block scroll %}
+                {{ include('admin/scroll.html.twig') }}
+            {% endblock %}
+            {% block infomodal %}
+                {{ include('admin/infomodal.html.twig') }}
+            {% endblock %}
+            {% block logoutmodal %}
+                {{ include('admin/logoutmodal.html.twig') }}
+            {% endblock %}
+            {% block javascripts %}
+                <script>
+                    const btnSwitch = document.querySelector('#switch');
+                    btnSwitch.addEventListener('click', () => {
+                        document.body.classList.toggle('dark');
+                        btnSwitch.classList.toggle('active');
+
+                        // Save mode on localstorage
+                        if (document.body.classList.contains('dark')) {
+                            localStorage.setItem('dark-mode', 'true');
+                        } else {
+                            localStorage.setItem('dark-mode', 'false');
+                        }
+                    });
+
+                    // Obtain current mode
+                    if (localStorage.getItem('dark-mode') === 'true') {
+                        document.body.classList.add('dark');
+                        btnSwitch.classList.add('active');
+                    } else {
+                        document.body.classList.remove('dark');
+                        btnSwitch.classList.remove('active');
+                    }
+                </script>
+                <!-- Bootstrap core JavaScript-->
+                <script src="{{ asset('jquery/jquery.min.js') }}"></script>
+                <script src="{{ asset('bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+                <!-- Core plugin JavaScript-->
+                <script src="{{ asset('jquery-easing/jquery.easing.min.js') }}"></script>
+                <!-- Page level plugin JavaScript-->
+                {#<script src="{{ asset('chart.js/Chart.min.js') }}"></script>#}
+                <script src="{{ asset('datatables/jquery.dataTables.js') }}"></script>
+                <script src="{{ asset('datatables/dataTables.bootstrap4.js') }}"></script>
+                <!-- Custom scripts for all pages-->
+                <script src="{{ asset('js/sb-admin.min.js') }}"></script>
+                <!-- Custom scripts for this page-->
+                <script src="{{ asset('js/sb-admin-datatables.min.js') }}"></script>
+                {#<script src="{{ asset('js/sb-admin-charts.min.js') }}"></script>#}
+                <script src="{{ asset('js/javascript.js') }}"></script>
+            {% endblock %}
+            {% block others_scripts %}
+                <script>
+                    if (document.body.offsetWidth < 1092 && document.body.offsetWidth > 991){
+                        $('.names').hide();
+                    }
+                </script>
+                <script src="{{ asset('js/collection.js') }}"></script>
+                <script src="{{ asset('js/dropdown-menu.js') }}"></script>
+            {% endblock %}
+        </div>
+    </body>
+</html>

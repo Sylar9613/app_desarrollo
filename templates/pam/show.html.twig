@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ver línea estratégica del PAM{% endblock %}
+
+{% block body %}
+    <br/>
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a class="normal" href="{{ path('pam_index') }}">{{ routes[0] }}</a>
+        </li>
+        <li class="breadcrumb-item activo">{{ routes[1] }}</li>
+    </ol>
+    <h1>Línea estratégica del PAM</h1>
+    {{ include('admin/errors.html.twig') }}
+    <table class="table table-hover">
+        <tbody>
+        {% if is_granted('ROLE_ADMIN') %}
+            <tr>
+                <th>Id</th>
+                <td>{{ pam.id }}</td>
+            </tr>
+        {% endif %}
+            <tr>
+                <th>Nombre</th>
+                <td>{{ pam.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Resultados esperados</th>
+                <td>{{ pam.resultadosEsperados }}</td>
+            </tr>
+            <tr>
+                <th>Indicadores cuantitativos</th>
+                <td>{% if pam.cuantitativos=="" %}{{ " - " }}{% else %}{{ pam.cuantitativos }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Indicadores cualitativos</th>
+                <td>{% if pam.cualitativos=="" %}{{ " - " }}{% else %}{{ pam.cualitativos }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Líneas Estratégicas</th>
+                <td>
+                    {#{{ pam.allLineas|join(', ') }}#}
+                    <ul>
+                    {% for linea in pam.lineas %}
+                        <h6>{{ linea.nombre }}</h6><br/>
+                        <h6>Indicadores:</h6>
+                        <li>{{ linea.indicadores }}</li><br/>
+                        <h6>Acciones:</h6>
+                        <ul class="ml-5">
+                            {% for accion in linea.acciones %}
+                                <h6>{{ accion.nombre }}</h6><br/>
+                                <h6>Responsables:</h6>
+                                <li>{{ accion.responsables }}</li><br/>
+                                <h6>Fecha:</h6>
+                                <li>{{ accion.fecha }}</li>
+                                <hr class="bg-secondary"/>
+                            {% endfor %}
+                        </ul>
+                        <hr class="bg-secondary"/>
+                    {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    {% if is_granted('ROLE_ADMIN') and pam.activo==1 %}
+        <a href="{{ path('pam_edit', { 'id': pam.id }) }}"
+           class="btn btn-warning text-white btn-block"><i class="fa fa-fw fa-edit"></i>&nbsp;Editar</a>
+        {{ include('pam/_delete_form.html.twig') }}
+    {% endif %}
+    <button onclick="goBack()" class="btn btn-secondary btn-block text-white">Atr&aacute;s</button>
+{% endblock %}

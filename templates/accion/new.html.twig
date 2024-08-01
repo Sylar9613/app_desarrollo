@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Crear nueva acci&oacute;n{% endblock %}
+
+{% block body %}
+    <br/>
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">{{ routes[0] }}</li>
+        <li class="breadcrumb-item">
+            <a class="normal" href="{{ path('entidad_index') }}">{{ routes[1] }}</a>
+        </li>
+        <li class="breadcrumb-item activo">{{ routes[2] }}</li>
+    </ol>
+    <h1>Crear nueva acci&oacute;n</h1>
+    {{ include('admin/errors.html.twig') }}
+    {{ include('accion/_form.html.twig') }}
+    <a style="margin-top: 8px;" href="{{ path('objetivo_assign', { 'id': entidad.id }) }}" class="btn bg-warn btn-block text-white"><i class="fa fa-fw fa-chain"></i>&nbsp;Continuar</a>
+    <button style="margin-top: 8px;" onclick="goBack()" class="btn btn-secondary btn-block text-white">Atr&aacute;s</button>
+{% endblock %}
